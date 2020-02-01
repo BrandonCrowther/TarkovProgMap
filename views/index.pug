@@ -1,0 +1,43 @@
+extends layout.pug
+block content
+    script(type='text/javascript').
+        $(() => {
+
+            const elements = JSON.parse('!{JSON.stringify(elements)}')
+
+            var cy = cytoscape({
+                container: $('#cy'), // container to render in
+
+                // hack to get elements into graph
+                elements: elements,
+
+                style: [ // the stylesheet for the graph
+                    {
+                    selector: 'node',
+                    style: {
+                        'background-color': '#666',
+                        'label': 'data(name)'
+                    }
+                    },
+
+                    {
+                    selector: 'edge',
+                    style: {
+                        'width': 3,
+                        'line-color': '#ccc',
+                        'target-arrow-color': '#ccc',
+                        'target-arrow-shape': 'triangle'
+                    }
+                    }
+                ],
+
+                layout: {
+                    name: 'grid',
+                    rows: 1
+                }
+
+            });
+        })
+
+    h1 Cytoscape Demo
+    div#cy
