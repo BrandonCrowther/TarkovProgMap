@@ -4,9 +4,6 @@ const structure = require('./quests')
 const app = express()
 app.set('view engine', 'pug')
 
-
-const cytoscape = require('cytoscape');
-
 app.get('/index', function(req, res){
     res.render("index", {elements: structure})
 })
