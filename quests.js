@@ -2,33 +2,13 @@ const crypto = require("crypto");
 
 
 var links = [] //init later
-var structure = [
-    // PRAPOR
-    {
-        id: 1, 
-        name: "Debut", 
-        requirements: {
-            "MP-133 Shotgun": 3,
-            "Test": 1
-        },
-        next: 2
-    },
-    { 
-        id: 2, 
-        name: "Checking", 
-        next: [3,4]
-    },
-    { 
-        id: 3, 
-        name: "Shootout picnic", 
-    },
-    { 
-        id: 4, 
-        name: "Delivery from the past", 
-    },
-]
+var prapor = require('./prapor');
+var therapist = require('./therapist');
+var hideout = require('./hideout');
 
 
+
+var structure = hideout;
 
 const linkNext = e => {
     if(e.next){
@@ -45,6 +25,7 @@ const linkReqs = e => {
             structure.push({
                 id: crypto.randomBytes(20).toString('hex'), 
                 name: f + " - " + e.requirements[f], 
+                classes: ["red"],
                 next: e.id
             })
         })
@@ -58,6 +39,6 @@ structure.forEach(linkNext)
 
 links.forEach(e => structure.push(e))
 //format data properly
-structure = structure.map(function(e){ return {data: e}})
+structure = structure.map(function(e){ return {data: e, classes: "prapor"}})
 
 module.exports = structure
